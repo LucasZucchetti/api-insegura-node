@@ -1,4 +1,4 @@
-const conectar = require("./connection");
+import conectar from "./connection.js";
 
 (async () => {
 

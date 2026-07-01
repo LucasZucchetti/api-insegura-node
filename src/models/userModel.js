@@ -1,4 +1,4 @@
-const conectar = require("../database/connection");
+import conectar from "../database/connection.js";
 
 class UserModel {
 
@@ -79,4 +79,4 @@ class UserModel {
 
 }
 
-module.exports = new UserModel();
+export default new UserModel();

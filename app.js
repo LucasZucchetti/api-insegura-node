@@ -1,10 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-
-const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./src/docs/swagger");
-
-const routes = require("./src/routes");
+import express from "express";
+import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./src/docs/swagger.js";
+import routes from "./src/routes/index.js";
 
 const app = express();
 
@@ -19,4 +17,4 @@ app.use(
 
 app.use(routes);
 
-module.exports = app;
+export default app;

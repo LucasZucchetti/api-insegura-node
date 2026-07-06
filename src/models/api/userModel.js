@@ -1,4 +1,4 @@
-import conectar from "../database/connection.js";
+import conectar from "../../database/connection.js";
 
 class UserModel {
 

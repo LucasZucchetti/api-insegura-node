@@ -5,6 +5,18 @@ import labRoutes from "./lab/index.js";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     tags:
+ *       - Health
+ *     summary: Verifica se a API está disponível.
+ *     responses:
+ *       200:
+ *         description: API em execução.
+ */
+
 router.use("/api", apiRoutes);
 
 router.use("/lab", labRoutes);

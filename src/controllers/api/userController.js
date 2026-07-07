@@ -1,12 +1,13 @@
-import User from "../../models/api/userModel.js";
+import UserService from "../../services/userService.js";
 import AppError from "../../errors/AppError.js";
+import { success } from "../../utils/response.js";
 
 class UserController {
   async listar(req, res, next) {
     try {
-      const usuarios = await User.listar();
+      const usuarios = await UserService.listar();
 
-      return res.json(usuarios);
+      return res.json(success(usuarios));
     } catch (erro) {
       next(erro);
     }
@@ -14,13 +15,9 @@ class UserController {
 
   async buscar(req, res, next) {
     try {
-      const usuario = await User.buscar(req.params.id);
+      const usuario = await UserService.buscar(req.params.id);
 
-      if (!usuario) {
-        throw new AppError("Usuário não encontrado.", 404);
-      }
-
-      return res.json(usuario);
+      return res.json(success(usuario));
     } catch (erro) {
       next(erro);
     }
@@ -28,9 +25,11 @@ class UserController {
 
   async criar(req, res, next) {
     try {
-      const usuario = await User.criar(req.body);
+      const usuario = await UserService.criar(req.body);
 
-      return res.status(201).json(usuario);
+      return res
+        .status(201)
+        .json(success(usuario, "Usuário criado com sucesso."));
     } catch (erro) {
       next(erro);
     }
@@ -38,11 +37,9 @@ class UserController {
 
   async atualizar(req, res, next) {
     try {
-      await User.atualizar(req.params.id, req.body);
+      await UserService.atualizar(req.params.id, req.body);
 
-      return res.json({
-        mensagem: "Usuário atualizado.",
-      });
+      return res.json(success(null, "Usuário atualizado com sucesso."));
     } catch (erro) {
       next(erro);
     }
@@ -50,13 +47,11 @@ class UserController {
 
   async remover(req, res, next) {
     try {
-      await User.remover(req.params.id);
+      await UserService.remover(req.params.id);
 
-      return res.json({
-        mensagem: "Usuário removido.",
-      });
-    } catch (erro) {
-      next(erro);
+      return res.json(success(null, "Usuário removido com sucesso."));
+    } catch (error) {
+      next(error);
     }
   }
 }

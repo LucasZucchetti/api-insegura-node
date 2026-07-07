@@ -24,7 +24,7 @@ app.use(
 app.use(routes);
 
 // SEMPRE por último
-// app.use(errorHandler);
-app.use(insecureErrorHandler);
+app.use(errorHandler);
+// app.use(insecureErrorHandler);
 
 export default app;

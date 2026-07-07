@@ -50,6 +50,8 @@ Exemplos:
 * Express
 * SQLite
 * Swagger (OpenAPI)
+* Zod
+* Helmet
 
 ---
 

@@ -52,6 +52,12 @@ class UserModel {
 
     return resultado.changes;
   }
+
+  async buscarPorEmail(email) {
+    const db = await conectar();
+
+    return db.get("SELECT * FROM usuarios WHERE email = ?", [email]);
+  }
 }
 
 export default new UserModel();

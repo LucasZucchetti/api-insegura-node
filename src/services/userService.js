@@ -1,5 +1,6 @@
 import UserModel from "../models/api/userModel.js";
 import AppError from "../errors/AppError.js";
+import { hashPassword } from "../utils/password.js";
 
 class UserService {
   async listar() {
@@ -23,14 +24,26 @@ class UserService {
       throw new AppError("E-mail já cadastrado.", 409);
     }
 
+    usuario.senha = await hashPassword(usuario.senha);
+
     return UserModel.criar(usuario);
   }
 
   async atualizar(id, usuario) {
     const existente = await UserModel.buscar(id);
+
     if (!existente) {
       throw new AppError("Usuário não encontrado.", 404);
     }
+
+    const emailExistente = await UserModel.buscarPorEmail(usuario.email);
+
+    if (emailExistente) {
+      throw new AppError("E-mail já cadastrado.", 409);
+    }
+
+    usuario.senha = await hashPassword(usuario.senha);
+
     return UserModel.atualizar(id, usuario);
   }
 

@@ -17,6 +17,12 @@ class UserService {
   }
 
   async criar(usuario) {
+    const existente = await UserModel.buscarPorEmail(usuario.email);
+
+    if (existente) {
+      throw new AppError("E-mail já cadastrado.", 409);
+    }
+
     return UserModel.criar(usuario);
   }
 

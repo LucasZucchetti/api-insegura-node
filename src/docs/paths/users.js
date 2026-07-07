@@ -42,6 +42,10 @@ const userPaths = {
           $ref: "#/components/responses/ValidationError",
         },
 
+        409: {
+          $ref: "#/components/responses/Conflict",
+        },
+
         500: {
           $ref: "#/components/responses/InternalServerError",
         },

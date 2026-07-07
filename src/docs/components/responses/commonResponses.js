@@ -34,4 +34,16 @@ export const commonResponses = {
       },
     },
   },
+
+  Conflict: {
+    description: "Conflito de dados.",
+
+    content: {
+      "application/json": {
+        schema: {
+          $ref: "#/components/schemas/ErrorResponse",
+        },
+      },
+    },
+  },
 };

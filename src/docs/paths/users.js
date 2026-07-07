@@ -1,131 +1,172 @@
 const userPaths = {
+  "/api/usuarios": {
+    get: {
+      tags: ["Users"],
 
-    "/api/usuarios": {
+      summary: "Lista todos os usuários.",
 
-        get: {
-
-            tags: ["Users"],
-
-            summary: "Lista todos os usuários.",
-
-            responses: {
-
-                200: {
-
-                    description: "Lista de usuários.",
-
-                    content: {
-
-                        "application/json": {
-
-                            schema: {
-
-                                type: "array",
-
-                                items: {
-                                    $ref: "#/components/schemas/User"
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
+      responses: {
+        200: {
+          $ref: "#/components/responses/UserList",
         },
 
-        post: {
-
-            tags: ["Users"],
-
-            summary: "Cria um novo usuário.",
-
-            requestBody: {
-
-                required: true,
-
-                content: {
-
-                    "application/json": {
-
-                        schema: {
-
-                            $ref: "#/components/schemas/UserInput"
-
-                        }
-
-                    }
-
-                }
-
-            },
-
-            responses: {
-
-                201: {
-
-                    description: "Usuário criado."
-
-                }
-
-            }
-
-        }
-
+        500: {
+          $ref: "#/components/responses/InternalServerError",
+        },
+      },
     },
 
-    "/api/usuarios/{id}": {
+    post: {
+      tags: ["Users"],
 
-        get: {
+      summary: "Cria um novo usuário.",
 
-            tags: ["Users"],
+      requestBody: {
+        required: true,
 
-            summary: "Busca um usuário por ID.",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/UserInput",
+            },
+          },
+        },
+      },
 
-            parameters: [
+      responses: {
+        201: {
+          $ref: "#/components/responses/UserCreated",
+        },
 
-                {
+        400: {
+          $ref: "#/components/responses/ValidationError",
+        },
 
-                    name: "id",
+        500: {
+          $ref: "#/components/responses/InternalServerError",
+        },
+      },
+    },
+  },
 
-                    in: "path",
+  "/api/usuarios/{id}": {
+    get: {
+      tags: ["Users"],
 
-                    required: true,
+      summary: "Busca um usuário por ID.",
 
-                    schema: {
+      parameters: [
+        {
+          name: "id",
 
-                        type: "integer"
+          in: "path",
 
-                    }
+          required: true,
 
-                }
+          schema: {
+            type: "integer",
+          },
+        },
+      ],
 
-            ],
+      responses: {
+        200: {
+          $ref: "#/components/responses/UserFound",
+        },
 
-            responses: {
+        404: {
+          $ref: "#/components/responses/NotFound",
+        },
 
-                200: {
+        500: {
+          $ref: "#/components/responses/InternalServerError",
+        },
+      },
+    },
+    put: {
+      tags: ["Users"],
 
-                    description: "Usuário encontrado."
+      summary: "Atualiza um usuário.",
 
-                },
+      parameters: [
+        {
+          in: "path",
+          name: "id",
+          required: true,
+          schema: {
+            type: "integer",
+          },
+          example: 1,
+        },
+      ],
 
-                404: {
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/UserInput",
+            },
+            example: {
+              nome: "Lucas Zucchetti",
+              email: "lucas@email.com",
+              senha: "NovaSenha123",
+            },
+          },
+        },
+      },
 
-                    description: "Usuário não encontrado."
+      responses: {
+        200: {
+          $ref: "#/components/responses/UserUpdated",
+        },
 
-                }
+        400: {
+          $ref: "#/components/responses/ValidationError",
+        },
 
-            }
+        404: {
+          $ref: "#/components/responses/NotFound",
+        },
 
-        }
+        500: {
+          $ref: "#/components/responses/InternalServerError",
+        },
+      },
+    },
+    delete: {
+      tags: ["Users"],
 
-    }
+      summary: "Remove um usuário por ID.",
 
+      parameters: [
+        {
+          name: "id",
+
+          in: "path",
+
+          required: true,
+
+          schema: {
+            type: "integer",
+          },
+        },
+      ],
+      responses: {
+        200: {
+          $ref: "#/components/responses/UserDeleted",
+        },
+
+        404: {
+          $ref: "#/components/responses/NotFound",
+        },
+
+        500: {
+          $ref: "#/components/responses/InternalServerError",
+        },
+      },
+    },
+  },
 };
 
 export default userPaths;

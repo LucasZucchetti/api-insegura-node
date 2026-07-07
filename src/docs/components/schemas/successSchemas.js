@@ -1,6 +1,6 @@
-export const errorSchemas = {
+export const successSchemas = {
 
-    Error: {
+    Success: {
 
         type: "object",
 
@@ -8,12 +8,13 @@ export const errorSchemas = {
 
             success: {
                 type: "boolean",
-                example: false
+                example: true
             },
 
             message: {
                 type: "string",
-                example: "Usuário não encontrado."
+                nullable: true,
+                example: "Operação realizada com sucesso."
             }
 
         }

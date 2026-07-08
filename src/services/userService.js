@@ -1,10 +1,12 @@
 import UserModel from "../models/api/userModel.js";
 import AppError from "../errors/AppError.js";
 import { hashPassword } from "../utils/password.js";
+import { toUserListResponse, toUserResponse } from "../utils/userSerializer.js";
 
 class UserService {
   async listar() {
-    return UserModel.listar();
+    const usuarios = await UserModel.listar();
+    return toUserListResponse(usuarios);
   }
 
   async buscar(id) {
@@ -14,7 +16,7 @@ class UserService {
       throw new AppError("Usuário não encontrado.", 404);
     }
 
-    return usuario;
+    return toUserResponse(usuario);
   }
 
   async criar(usuario) {
@@ -26,7 +28,9 @@ class UserService {
 
     usuario.senha = await hashPassword(usuario.senha);
 
-    return UserModel.criar(usuario);
+    const novoUsuario = await UserModel.criar(usuario);
+
+    return toUserResponse(novoUsuario);
   }
 
   async atualizar(id, usuario) {

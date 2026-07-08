@@ -5,7 +5,9 @@ import { errorSchemas } from "./components/schemas/errorSchemas.js";
 import { commonSchemas } from "./components/schemas/commonSchemas.js";
 import { userResponses } from "./components/responses/userResponse.js";
 import { commonResponses } from "./components/responses/commonResponses.js";
-
+import { authSchemas } from "./components/schemas/authSchemas.js";
+import { authResponses } from "./components/responses/authResponses.js";
+import authPaths from "./paths/auth.js";
 import healthPaths from "./paths/health.js";
 import userPaths from "./paths/users.js";
 
@@ -32,6 +34,9 @@ const swaggerSpec = {
       name: "Users",
     },
     {
+      name: "Auth",
+    },
+    {
       name: "Labs",
     },
   ],
@@ -39,6 +44,7 @@ const swaggerSpec = {
   paths: {
     ...healthPaths,
     ...userPaths,
+    ...authPaths,
   },
 
   components: {
@@ -48,11 +54,15 @@ const swaggerSpec = {
       ...userSchemas,
 
       ...errorSchemas,
+
+      ...authSchemas,
     },
     responses: {
       ...commonResponses,
 
       ...userResponses,
+
+      ...authResponses,
     },
   },
 };

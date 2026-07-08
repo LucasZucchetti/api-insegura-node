@@ -4,54 +4,64 @@ import controller from "../../controllers/api/userController.js";
 
 import validate from "../../middlewares/validate.js";
 
+import authMiddleware from "../../auth/authMiddleware.js";
+
 import {
   createUserSchema,
   updateUserSchema,
 } from "../../validations/userValidation.js";
 
-import { searchUserSchema, idParamSchema } from "../../validations/commonValidation.js";
+import {
+  searchUserSchema,
+  idParamSchema,
+} from "../../validations/commonValidation.js";
 
 const router = express.Router();
 
 router.get(
-    "/",
-    validate({
-        query: searchUserSchema
-    }),
-    controller.listar
+  "/",
+  authMiddleware,
+  validate({
+    query: searchUserSchema,
+  }),
+  controller.listar,
 );
 
 router.get(
-    "/:id",
-    validate({
-        params: idParamSchema
-    }),
-    controller.buscar
+  "/:id",
+  authMiddleware,
+  validate({
+    params: idParamSchema,
+  }),
+  controller.buscar,
 );
 
 router.post(
-    "/",
-    validate({
-        body: createUserSchema
-    }),
-    controller.criar
+  "/",
+  authMiddleware,
+  validate({
+    body: createUserSchema,
+  }),
+  controller.criar,
 );
 
 router.put(
-    "/:id",
-    validate({
-        params: idParamSchema,
-        body: updateUserSchema
-    }),
-    controller.atualizar
+  "/:id",
+  authMiddleware,
+  validate({
+    params: idParamSchema,
+    body: updateUserSchema,
+  }),
+  controller.atualizar,
 );
 
 router.delete(
-    "/:id",
-    validate({
-        params: idParamSchema
-    }),
-    controller.remover
+  "/:id",
+  authMiddleware,
+  validate({
+    params: idParamSchema,
+  }),
+  controller.remover,
 );
 
 export default router;

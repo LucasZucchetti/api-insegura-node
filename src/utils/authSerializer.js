@@ -1,7 +1,11 @@
-export default function toLoginResponse(usuario) {
+export default function toLoginResponse(usuario, token) {
   return {
-    id: usuario.id,
-    nome: usuario.nome,
-    email: usuario.email,
+    token,
+
+    user: {
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
+    },
   };
 }

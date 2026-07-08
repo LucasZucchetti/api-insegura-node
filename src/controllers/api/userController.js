@@ -15,7 +15,7 @@ class UserController {
 
   async buscar(req, res, next) {
     try {
-      const usuario = await UserService.buscar(req.params.id);
+      const usuario = await UserService.buscar(req.validated.params.id);
 
       return res.json(success(usuario));
     } catch (erro) {
@@ -25,7 +25,7 @@ class UserController {
 
   async criar(req, res, next) {
     try {
-      const usuario = await UserService.criar(req.body);
+      const usuario = await UserService.criar(req.validated.body);
 
       return res
         .status(201)
@@ -37,7 +37,7 @@ class UserController {
 
   async atualizar(req, res, next) {
     try {
-      await UserService.atualizar(req.params.id, req.body);
+      await UserService.atualizar(req.validated.params.id, req.validated.body);
 
       return res.json(success(null, "Usuário atualizado com sucesso."));
     } catch (erro) {
@@ -47,7 +47,7 @@ class UserController {
 
   async remover(req, res, next) {
     try {
-      await UserService.remover(req.params.id);
+      await UserService.remover(req.validated.params.id);
 
       return res.json(success(null, "Usuário removido com sucesso."));
     } catch (error) {

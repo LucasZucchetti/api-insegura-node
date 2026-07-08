@@ -1,26 +1,33 @@
 import { ZodError } from "zod";
+import { error } from "../utils/response.js";
 
 export default function validate(schemas) {
   return (req, res, next) => {
     try {
+      req.validated = {
+        body: {},
+        params: {},
+        query: {},
+      };
+
       if (schemas.body) {
-        req.body = schemas.body.parse(req.body);
+        req.validated.body = schemas.body.parse(req.body);
       }
 
       if (schemas.params) {
-        req.params = schemas.params.parse(req.params);
+        req.validated.params = schemas.params.parse(req.params);
       }
 
       if (schemas.query) {
-        Object.assign(req.query, schemas.query.parse(req.query));
+        req.validated.query = schemas.query.parse(req.query);
       }
 
       next();
-    } catch (error) {
-      if (error instanceof ZodError) {
+    } catch (err) {
+      if (err instanceof ZodError) {
         const errors = {};
 
-        for (const issue of error.issues) {
+        for (const issue of err.issues) {
           const field = issue.path.join(".");
 
           if (!errors[field]) {
@@ -30,10 +37,10 @@ export default function validate(schemas) {
           errors[field].push(issue.message);
         }
 
-        return res.status(400).json(("Erro de validação.", errors));
+        return res.status(400).json(error("Erro de validação.", errors));
       }
 
-      next(error);
+      next(err);
     }
   };
 }

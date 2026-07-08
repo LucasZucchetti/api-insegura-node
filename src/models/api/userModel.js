@@ -13,6 +13,12 @@ class UserModel {
     return db.get("SELECT * FROM usuarios WHERE id = ?", [id]);
   }
 
+  async buscarPorEmail(email) {
+    const db = await conectar();
+
+    return db.get("SELECT * FROM usuarios WHERE email = ?", [email]);
+  }
+
   async criar(usuario) {
     const db = await conectar();
 

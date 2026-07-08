@@ -64,6 +64,13 @@ const swaggerSpec = {
 
       ...authResponses,
     },
+    securitySchemes: {
+      BearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
   },
 };
 

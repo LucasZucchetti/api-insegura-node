@@ -14,6 +14,11 @@ const userPaths = {
           $ref: "#/components/responses/InternalServerError",
         },
       },
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
     },
 
     post: {
@@ -50,6 +55,11 @@ const userPaths = {
           $ref: "#/components/responses/InternalServerError",
         },
       },
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
     },
   },
 
@@ -86,6 +96,11 @@ const userPaths = {
           $ref: "#/components/responses/InternalServerError",
         },
       },
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
     },
     put: {
       tags: ["Users"],
@@ -137,6 +152,11 @@ const userPaths = {
           $ref: "#/components/responses/InternalServerError",
         },
       },
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
     },
     delete: {
       tags: ["Users"],
@@ -169,6 +189,11 @@ const userPaths = {
           $ref: "#/components/responses/InternalServerError",
         },
       },
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
     },
   },
 };

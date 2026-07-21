@@ -36,21 +36,14 @@ router.get(
   controller.buscar,
 );
 
-router.post(
-  "/",
-  authMiddleware,
-  validate({
-    body: createUserSchema,
-  }),
-  controller.criar,
-);
+router.post("/", validate(createUserSchema), controller.criar);
 
 router.put(
   "/:id",
   authMiddleware,
   validate({
     params: idParamSchema,
-    body: updateUserSchema,
+    ...updateUserSchema,
   }),
   controller.atualizar,
 );

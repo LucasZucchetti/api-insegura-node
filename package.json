@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "migrate": "node src/database/migrate.js"
   },
   "keywords": [],
   "author": "",

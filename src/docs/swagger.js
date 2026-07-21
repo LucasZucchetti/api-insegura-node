@@ -7,9 +7,12 @@ import { userResponses } from "./components/responses/userResponse.js";
 import { commonResponses } from "./components/responses/commonResponses.js";
 import { authSchemas } from "./components/schemas/authSchemas.js";
 import { authResponses } from "./components/responses/authResponses.js";
+import { meSchemas } from "./components/schemas/meSchemas.js";
+import { meResponses } from "./components/responses/meResponses.js";
 import authPaths from "./paths/auth.js";
 import healthPaths from "./paths/health.js";
 import userPaths from "./paths/users.js";
+import mePaths from "./paths/me.js";
 
 const swaggerSpec = {
   openapi: "3.0.0",
@@ -26,6 +29,12 @@ const swaggerSpec = {
     },
   ],
 
+  security: [
+    {
+      BearerAuth: [],
+    },
+  ],
+
   tags: [
     {
       name: "Health",
@@ -37,6 +46,9 @@ const swaggerSpec = {
       name: "Auth",
     },
     {
+      name: "Me",
+    },
+    {
       name: "Labs",
     },
   ],
@@ -45,9 +57,17 @@ const swaggerSpec = {
     ...healthPaths,
     ...userPaths,
     ...authPaths,
+    ...mePaths,
   },
 
   components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
     schemas: {
       ...commonSchemas,
 
@@ -56,6 +76,8 @@ const swaggerSpec = {
       ...errorSchemas,
 
       ...authSchemas,
+
+      ...meSchemas,
     },
     responses: {
       ...commonResponses,
@@ -63,13 +85,8 @@ const swaggerSpec = {
       ...userResponses,
 
       ...authResponses,
-    },
-    securitySchemes: {
-      BearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-      },
+
+      ...meResponses,
     },
   },
 };

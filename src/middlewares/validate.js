@@ -2,6 +2,16 @@ import { ZodError } from "zod";
 import { error } from "../utils/response.js";
 
 export default function validate(schemas) {
+  const validKeys = ["body", "params", "query"];
+
+  for (const key of Object.keys(schemas)) {
+    if (!validKeys.includes(key)) {
+      throw new Error(
+        `Schema '${key}' inválido. Utilize apenas body, params ou query.`,
+      );
+    }
+  }
+
   return (req, res, next) => {
     try {
       req.validated = {
@@ -11,6 +21,7 @@ export default function validate(schemas) {
       };
 
       if (schemas.body) {
+        console.log("Validating body:", req.validated.body);
         req.validated.body = schemas.body.parse(req.body);
       }
 

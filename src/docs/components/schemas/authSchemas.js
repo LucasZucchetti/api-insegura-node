@@ -36,6 +36,16 @@ export const authSchemas = {
         format: "email",
         example: "user@email.com",
       },
+      role: {
+        type: "string",
+        enum: ["user", "admin"],
+        example: "user",
+      },
+      avatar_url: {
+        type: "string",
+        nullable: true,
+        example: "https://res.cloudinary.com/...",
+      },
     },
   },
 

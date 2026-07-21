@@ -18,7 +18,7 @@ class AuthService {
       throw new AppError("Credenciais inválidas.", 401);
     }
 
-    const token = generateToken({ id: usuario.id });
+    const token = generateToken({ id: usuario.id, role: usuario.role });
 
     return toLoginResponse(usuario, token);
   }

@@ -1,110 +1,94 @@
 const User = {
+  type: "object",
 
-    type: "object",
+  properties: {
+    id: {
+      type: "integer",
+      example: 1,
+    },
 
-    properties: {
+    nome: {
+      type: "string",
+      example: "User Name",
+    },
 
-        id: {
-            type: "integer",
-            example: 1
-        },
-
-        nome: {
-            type: "string",
-            example: "User Name"
-        },
-
-        email: {
-            type: "string",
-            example: "user@email.com"
-        }
-
-    }
-
+    email: {
+      type: "string",
+      example: "user@email.com",
+    },
+    role: {
+      type: "string",
+      enum: ["user", "admin"],
+      example: "user",
+    },
+    avatar_url: {
+      type: "string",
+      nullable: true,
+      example: "https://res.cloudinary.com/...",
+    },
+  },
 };
 
 const UserInput = {
+  type: "object",
 
-    type: "object",
+  required: ["nome", "email", "senha"],
 
-    required: [
-        "nome",
-        "email",
-        "senha"
-    ],
+  properties: {
+    nome: {
+      type: "string",
+    },
 
-    properties: {
+    email: {
+      type: "string",
+    },
 
-        nome: {
-            type: "string"
-        },
-
-        email: {
-            type: "string"
-        },
-
-        senha: {
-            type: "string"
-        }
-
-    }
-
+    senha: {
+      type: "string",
+    },
+  },
 };
 
 const UserResponse = {
+  type: "object",
 
-    type: "object",
+  properties: {
+    success: {
+      type: "boolean",
+      example: true,
+    },
 
-    properties: {
-
-        success: {
-            type: "boolean",
-            example: true
-        },
-
-        data: {
-
-            $ref: "#/components/schemas/User"
-
-        }
-
-    }
-
+    data: {
+      $ref: "#/components/schemas/User",
+    },
+  },
 };
 
 const UserListResponse = {
+  type: "object",
 
-    type: "object",
+  properties: {
+    success: {
+      type: "boolean",
+      example: true,
+    },
 
-    properties: {
+    data: {
+      type: "array",
 
-        success: {
-            type: "boolean",
-            example: true
-        },
-
-        data: {
-
-            type: "array",
-
-            items: {
-                $ref: "#/components/schemas/User"
-            }
-
-        }
-
-    }
-
+      items: {
+        $ref: "#/components/schemas/User",
+      },
+    },
+  },
 };
 
 export const userSchemas = {
+  User,
 
-    User,
+  UserInput,
 
-    UserInput,
+  UserResponse,
 
-    UserResponse,
-
-    UserListResponse
-
+  UserListResponse,
 };

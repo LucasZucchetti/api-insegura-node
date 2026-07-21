@@ -64,6 +64,51 @@ class UserModel {
 
     return db.get("SELECT * FROM usuarios WHERE email = ?", [email]);
   }
+
+  async buscarAvatar(id) {
+    const db = await conectar();
+
+    return db.get(
+      `
+    SELECT
+      avatar_url,
+      avatar_public_id
+    FROM usuarios
+    WHERE id = ?
+    `,
+      [id],
+    );
+  }
+
+  async atualizarAvatar(id, avatar) {
+    const db = await conectar();
+
+    await db.run(
+      `
+    UPDATE usuarios
+    SET
+      avatar_url = ?,
+      avatar_public_id = ?
+    WHERE id = ?
+    `,
+      [avatar.avatar_url, avatar.avatar_public_id, id],
+    );
+  }
+
+  async removerAvatar(id) {
+    const db = await conectar();
+
+    await db.run(
+      `
+    UPDATE usuarios
+    SET
+      avatar_url = NULL,
+      avatar_public_id = NULL
+    WHERE id = ?
+    `,
+      [id],
+    );
+  }
 }
 
 export default new UserModel();

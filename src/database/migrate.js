@@ -2,9 +2,8 @@ import conectar from "./connection.js";
 
 import migration001 from "./migrations/001_create_users.js";
 import migration002 from "./migrations/002_add_avatar_columns.js";
-import migration003 from "./migrations/003_add_role_column.js";
 
-const migrations = [migration001, migration002, migration003];
+const migrations = [migration001, migration002];
 
 (async () => {
   const db = await conectar();

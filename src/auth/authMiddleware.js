@@ -19,6 +19,7 @@ export default function authMiddleware(req, res, next) {
 
     req.user = {
       id: payload.id,
+      role: payload.role,
     };
 
     next();

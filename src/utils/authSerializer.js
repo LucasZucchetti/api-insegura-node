@@ -6,8 +6,8 @@ export default function toLoginResponse(usuario, token) {
       id: usuario.id,
       nome: usuario.nome,
       email: usuario.email,
-      role,
-      avatar_url,
+      role: usuario.role,
+      avatar_url: usuario.avatar_url,
     },
   };
 }

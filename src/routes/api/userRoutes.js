@@ -1,10 +1,9 @@
 import express from "express";
-
 import controller from "../../controllers/api/userController.js";
-
 import validate from "../../middlewares/validate.js";
-
 import authMiddleware from "../../auth/authMiddleware.js";
+import authorize from "../../auth/authorize.js";
+import { ROLES } from "../../auth/roles.js";
 
 import {
   createUserSchema,
@@ -21,6 +20,7 @@ const router = express.Router();
 router.get(
   "/",
   authMiddleware,
+  authorize(ROLES.ADMIN),
   validate({
     query: searchUserSchema,
   }),
@@ -30,6 +30,7 @@ router.get(
 router.get(
   "/:id",
   authMiddleware,
+  authorize(ROLES.ADMIN),
   validate({
     params: idParamSchema,
   }),
@@ -41,6 +42,7 @@ router.post("/", validate(createUserSchema), controller.criar);
 router.put(
   "/:id",
   authMiddleware,
+  authorize(ROLES.ADMIN),
   validate({
     params: idParamSchema,
     ...updateUserSchema,
@@ -51,6 +53,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleware,
+  authorize(ROLES.ADMIN),
   validate({
     params: idParamSchema,
   }),
